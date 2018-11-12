@@ -1,3 +1,6 @@
-body {
-  background: blue;
-}
+@import "./base/normalize";
+@import "./base/fonts";
+@import "./base/variables";
+@import "./base/scaffolding";
+
+@import "./components/app";
