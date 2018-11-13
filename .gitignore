@@ -4,7 +4,8 @@
 # OS or Editor folders
 .DS_Store
 Thumbs.db
-.idea
+.idea/
+.vscode/
 
 # NPM packages folder.
 node_modules/
