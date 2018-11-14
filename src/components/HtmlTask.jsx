@@ -8,7 +8,7 @@ export default class HtmlTask extends React.Component {
       <div className="html-task">
         <BackButton />
         <h1 className="html-task__title">Ты сегодня покормил кота?</h1>
-        <div className="html-task__content outline-1">
+        <div className="html-task__content">
           <CardList />
         </div>
       </div>

@@ -7,12 +7,14 @@
   width: 50px;
   height: 20px;
   color: #ffffff;
+  background: rgba(0, 0, 0, 0.4);
   text-decoration: none;
   text-transform: uppercase;
   z-index: 101;
   &:hover {
-    color: #ffffff;
-    outline: 2px solid #ffffff;
+    color: #000000;
+    background: #ffffff;
+    outline: 2px solid #000000;
   }
   &:active {
     color: #000000;

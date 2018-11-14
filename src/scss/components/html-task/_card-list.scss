@@ -8,8 +8,9 @@
   min-height: 490px;
   margin: 10px auto 0;
   overflow-y: auto;
+  overflow-x: hidden;
   @media (orientation: landscape) {
-    overflow: visible;
+    overflow-y: visible;
   }
   // @media (orientation: landscape) and (max-width: $tablet-width - 1) {
   //   overflow: visible;
