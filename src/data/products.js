@@ -1,6 +1,8 @@
 export const products = [
   {
     id: "foiegras",
+    isChecked: false,
+    isDisabled: false,
     type: "с фуа-гра",
     description: "Печень утки разварная с артишоками.",
     portions: 10,
@@ -12,6 +14,8 @@ export const products = [
   },
   {
     id: "fish",
+    isChecked: false,
+    isDisabled: false,
     type: "с рыбой",
     description: "Головы щучьи с чесноком да свежайшая сёмгушка.",
     portions: 40,
@@ -23,8 +27,10 @@ export const products = [
   },
   {
     id: "chicken",
+    isChecked: false,
+    isDisabled: false,
     type: "с курой",
-    description: "Головы щучьи с чесноком да свежайшая сёмгушка.",
+    description: "Нежное куриное филе.",
     portions: 100,
     presents: {
       count: 5,

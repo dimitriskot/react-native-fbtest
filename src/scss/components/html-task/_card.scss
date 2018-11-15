@@ -1,31 +1,55 @@
 .card {
-  &-item {
-    display: flex;
-    width: 300px;
-    min-height: 490px;
-    margin: 0 auto;
-    margin-bottom: 10px;
-    color: #666666;
-    background: rgba(255, 255, 255, 0.3);
-    &--checked {
-      .card-body {
-        border-color: $checked;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  min-height: 490px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  color: #666666;
+  background: rgba(255, 255, 255, 0.3);
+  &--checked {
+    .card-body {
+      border-color: $checked;
+      &::before,
+      &::after {
+        border-color: inherit;
+      }
+      &:hover {
+        border-color: $checked-hover;
+        .card-body__subtitle--default {
+          display: none;
+        }
+        .card-body__subtitle--question {
+          display: block;
+        }
         &::before,
         &::after {
           border-color: inherit;
         }
-        &:hover {
-          border-color: $checked-hover;
-          .card-body__subtitle--default {
-            display: none;
-          }
-          .card-body__subtitle--question {
-            display: block;
-          }
-          &::before,
-          &::after {
-            border-color: inherit;
-          }
+      }
+    }
+  }
+  .card-input:checked ~ .card-body {
+    background-color: $checked;
+  }
+
+  // .card__input:checked:hover ~ .card__box--test .card__weight-box {
+  //   background-color: $checked-hover;
+  // }
+  &-input:hover {
+    ~ .card-body {
+      border-color: $default-hover;
+      &::before,
+      &::after {
+        border-color: inherit;
+      }
+    }
+    ~ .card-footer {
+      p {
+        .card-footer__label {
+          color: $default-hover;
+          border-color: $default-hover;
         }
       }
     }
@@ -37,7 +61,7 @@
     margin: 45px 0 14px;
     padding-left: 46px;
     background: #ffffff;
-    background-image: url("../assets/img/cat.png");
+    // background-image: url("../assets/img/cat.png");
     background-position: -30px 165px;
     background-repeat: no-repeat;
     border-bottom-left-radius: 11px;
@@ -105,6 +129,34 @@
       &::after {
         border-color: inherit;
       }
+      + .card-footer {
+        p {
+          .card-footer__label {
+            color: $default-hover;
+            border-color: $default-hover;
+          }
+        }
+      }
+    }
+  }
+  &-footer {
+    margin: 0 auto;
+    padding: 0;
+
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: #ffffff;
+    &--disabled {
+      color: #ffff66;
+    }
+    &__label {
+      margin: 0;
+      padding: 0;
+      display: inline;
+      color: $default;
+      border-bottom: 1px dashed $default;
+      cursor: pointer;
     }
   }
 }
