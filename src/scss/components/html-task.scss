@@ -1,37 +1,40 @@
-@import "./html-task/card-list";
-@import "./html-task/card";
+@import "./html-task/product-list";
+@import "./html-task/product";
 
 .html-task {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 30px 10px 0;
-  overflow: hidden;
-  @media (orientation: landscape) {
-    overflow: visible;
-  }
-  // @media (orientation: landscape) and (max-width: $tablet-width - 1) {
-  //   overflow: visible;
-  // }
-  &__title {
-    flex-grow: 1;
-    margin: 0;
-    padding: 0;
-    font-family: "Exo 2", "Arial", sans-serif;
-    font-weight: normal;
-    font-size: 36px;
-    line-height: 36px;
-    text-align: center;
-    color: #ffffff;
-  }
-  &__content {
-    display: flex;
-    // align-items: stretch;
-    flex-grow: 3;
-    flex-direction: column;
-    height: 100%;
-    padding-top: 20px;
-  }
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: 30px 10px 0;
+	overflow: hidden;
+
+	@media (orientation: landscape) {
+		overflow: visible;
+	}
+
+	// @media (orientation: landscape) and (max-width: $tablet-width - 1) {
+	//   overflow: visible;
+	// }
+	&__title {
+		flex-grow: 1;
+		margin: 0;
+		padding: 0;
+		font-family: "Exo 2", "Arial", sans-serif;
+		font-weight: normal;
+		font-size: 36px;
+		line-height: 36px;
+		text-align: center;
+		color: #ffffff;
+	}
+
+	&__content {
+		display: flex;
+		// align-items: stretch;
+		flex-grow: 3;
+		flex-direction: column;
+		height: 100%;
+		padding-top: 20px;
+	}
 }
