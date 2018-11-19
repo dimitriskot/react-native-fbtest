@@ -2,7 +2,8 @@ import React from "react";
 import * as classNames from "classnames";
 
 export const Product = props => {
-	const { product } = props;
+	const { product, handleChange, handleMouseLeave } = props;
+	// console.log(product);
 
 	return (
 		<div className="product">
@@ -11,8 +12,18 @@ export const Product = props => {
 				type="checkbox"
 				name="food"
 				id={product.id}
+				value={product.isChecked}
+				onChange={handleChange}
 			/>
-			<label className="product-body" htmlFor={product.id}>
+			<label
+				className={classNames(
+					"product-body",
+					product.isChecked && "product-body--checked",
+					product.isDefaultChecked && "product-body--hover"
+				)}
+				htmlFor={product.id}
+				onMouseLeave={handleMouseLeave}
+			>
 				<p className="product-body__subtitle product-body__subtitle--default">
 					Сказочное заморское яство
         </p>
@@ -22,7 +33,7 @@ export const Product = props => {
 				<h1>{product.type}</h1>
 				<span className="product-body__scaffold" />
 			</label>
-			<div
+			{/* <div
 				className={classNames(
 					"product-footer",
 					product.isChecked && "product-footer--checked",
@@ -39,7 +50,7 @@ export const Product = props => {
 				)}
 				{product.isChecked && <p>Печень утки разварная с артишоками.</p>}
 				{product.isDisabled && <p>Печалька, с фуа-гра закончился.</p>}
-			</div>
+			</div> */}
 		</div>
 	);
 };

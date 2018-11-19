@@ -2,7 +2,7 @@ import React from "react";
 import { BackButton } from "./common/BackButton";
 import ProductList from "./html-task/ProductList";
 
-export default class HtmlTask extends React.Component {
+class HtmlTask extends React.Component {
 	render() {
 		return (
 			<div className="html-task">
@@ -15,3 +15,5 @@ export default class HtmlTask extends React.Component {
 		);
 	}
 }
+
+export default HtmlTask;

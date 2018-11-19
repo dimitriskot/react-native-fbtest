@@ -1,84 +1,88 @@
 html {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+	box-sizing: inherit;
 }
 
 body {
-  position: relative;
-  height: 100vh;
-  margin: 0;
+	position: relative;
+	height: 100vh;
+	margin: 0;
 
-  font-family: "TrebuchetMS", "Arial", sans-serif;
-  color: #fff;
-  background-image: url("../assets/img/pattern.png");
-  // linear-gradient(
-  //     rgba(0, 0, 0, 0.4) 0%,
-  //     rgba(0, 0, 0, 0) 20%,
-  //     rgba(0, 0, 0, 0) 80%,
-  //     rgba(0, 0, 0, 0.4) 100%
-  //   ), url("../assets/img/pattern.png");
+	font-family: "TrebuchetMS", "Arial", sans-serif;
+	color: #fff;
+	background-image: url("../assets/img/pattern.png");
+	// linear-gradient(
+	//     rgba(0, 0, 0, 0.4) 0%,
+	//     rgba(0, 0, 0, 0) 20%,
+	//     rgba(0, 0, 0, 0) 80%,
+	//     rgba(0, 0, 0, 0.4) 100%
+	//   ), url("../assets/img/pattern.png");
 
-  &::before {
-    content: "";
-    position: fixed;
-    display: block;
-    top: 0;
-    width: 100%;
-    background: red;
-    box-shadow: 0 0 100px 100px rgba(0, 0, 0, 0.5);
-    // z-index: 100;
-    @media (orientation: landscape) {
-      box-shadow: 0 0 30px 30px rgba(0, 0, 0, 0.5);
-    }
-  }
-  &::after {
-    content: "";
-    position: fixed;
-    display: block;
-    bottom: 0;
-    width: 100%;
-    background: red;
-    box-shadow: 0 0 100px 100px rgba(0, 0, 0, 0.5);
-    // z-index: 100;
-    @media (orientation: landscape) {
-      box-shadow: 0 0 30px 30px rgba(0, 0, 0, 0.5);
-    }
-  }
-  #root {
-    height: 100%;
-  }
+	&::before {
+		content: "";
+		position: fixed;
+		display: block;
+		top: 0;
+		width: 100%;
+		background: red;
+		box-shadow: 0 0 100px 100px rgba(0, 0, 0, 0.5);
+
+		// z-index: 100;
+		@media (orientation: landscape) {
+			box-shadow: 0 0 30px 30px rgba(0, 0, 0, 0.5);
+		}
+	}
+
+	&::after {
+		content: "";
+		position: fixed;
+		display: block;
+		bottom: 0;
+		width: 100%;
+		background: red;
+		box-shadow: 0 0 100px 100px rgba(0, 0, 0, 0.5);
+
+		// z-index: 100;
+		@media (orientation: landscape) {
+			box-shadow: 0 0 30px 30px rgba(0, 0, 0, 0.5);
+		}
+	}
+
+	#root {
+		height: 100%;
+	}
 }
 
 img {
-  max-width: 100%;
-  height: auto;
+	max-width: 100%;
+	height: auto;
 }
 
-.container {
-  width: 320px;
-  height: 100%;
-  min-height: 622px;
-  margin: 0 auto;
+.app {
+	width: 320px;
+	height: 100%;
+	min-height: 622px;
+	margin: 0 auto;
 
-  // display: flex;
-  // flex-direction: column;
+	// display: flex;
+	// flex-direction: column;
 
-  background-color: rgba(255, 255, 255, 0.4);
+	background-color: rgba(255, 255, 255, 0.4);
 }
 
 @media (min-width: $tablet-width) {
-  .container {
-    width: 660px;
-  }
+	.app {
+		width: 660px;
+	}
 }
 
 // @media (min-width: $desktop-width) {
-//   .container {
+//   .app {
 //     width: 1200px;
 //   }
 // }
@@ -86,36 +90,36 @@ img {
 .visually-hidden:not(:focus):not(:active),
 input[type="checkbox"].visually-hidden,
 input[type="radio"].visually-hidden {
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  white-space: nowrap;
-  border: 0;
-  clip-path: inset(100%);
+	position: absolute;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	white-space: nowrap;
+	border: 0;
+	clip-path: inset(100%);
 }
 
 .outline {
-  &-1 {
-    outline: 2px solid rgb(255, 0, 0);
-    background-color: rgba(255, 0, 0, 0.4);
-  }
+	&-1 {
+		outline: 2px solid rgb(255, 0, 0);
+		background-color: rgba(255, 0, 0, 0.4);
+	}
 
-  &-2 {
-    outline: 2px solid rgb(255, 251, 0);
-    background-color: rgba(255, 251, 0, 0.4);
-  }
+	&-2 {
+		outline: 2px solid rgb(255, 251, 0);
+		background-color: rgba(255, 251, 0, 0.4);
+	}
 
-  &-3 {
-    outline: 2px solid rgb(0, 38, 255);
-    background-color: rgba(0, 38, 255, 0.4);
-  }
+	&-3 {
+		outline: 2px solid rgb(0, 38, 255);
+		background-color: rgba(0, 38, 255, 0.4);
+	}
 
-  &-4 {
-    outline: 2px solid rgb(38, 255, 0);
-    background-color: rgba(38, 255, 0, 0.4);
-  }
+	&-4 {
+		outline: 2px solid rgb(38, 255, 0);
+		background-color: rgba(38, 255, 0, 0.4);
+	}
 }

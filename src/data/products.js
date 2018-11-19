@@ -1,5 +1,6 @@
-export const products = [{
+export const productsData = [{
 		id: "foiegras",
+		isDefaultChecked: false,
 		isChecked: false,
 		isDisabled: false,
 		type: "с фуа-гра",
@@ -13,6 +14,7 @@ export const products = [{
 	},
 	{
 		id: "fish",
+		isDefaultChecked: false,
 		isChecked: false,
 		isDisabled: false,
 		type: "с рыбой",
@@ -26,6 +28,7 @@ export const products = [{
 	},
 	{
 		id: "chicken",
+		isDefaultChecked: false,
 		isChecked: false,
 		isDisabled: true,
 		type: "с курой",

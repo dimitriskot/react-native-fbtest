@@ -9,93 +9,69 @@
 	color: #666666;
 	background: rgba(255, 255, 255, 0.3);
 
-	&--checked {
-		.product-body {
-			border-color: $checked;
+	&-input {
+		display: none;
 
-			&::before,
-			&::after {
-				border-color: inherit;
-			}
+		// &:checked {
+		// 	~.product-body {
+		// 		border-color: $checked;
 
-			&:hover {
-				border-color: $checked-hover;
+		// 		&::before,
+		// 		&::after {
+		// 			border-color: inherit;
+		// 		}
+		// 	}
 
-				.product-body__subtitle--default {
-					display: none;
-				}
+		// 	~.product-footer {
+		// 		p {
+		// 			.product-footer__label {
+		// 				color: $checked;
+		// 				border-color: $checked;
+		// 			}
+		// 		}
+		// 	}
 
-				.product-body__subtitle--question {
-					display: block;
-				}
+		// 	&:hover {
+		// 		~.product-body {
+		// 			border-color: $checked-hover;
 
-				&::before,
-				&::after {
-					border-color: inherit;
-				}
-			}
-		}
+		// 			&::before,
+		// 			&::after {
+		// 				border-color: inherit;
+		// 			}
+		// 		}
+
+		// 		~.product-footer {
+		// 			p {
+		// 				.product-footer__label {
+		// 					color: $checked-hover;
+		// 					border-color: $checked-hover;
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// }
 	}
 
-	&-input:checked {
-		~.product-body {
-			border-color: $checked;
+	// &-input:hover {
+	// 	~.product-body {
+	// 		border-color: $default-hover;
 
-			&::before,
-			&::after {
-				border-color: inherit;
-			}
-		}
+	// 		&::before,
+	// 		&::after {
+	// 			border-color: inherit;
+	// 		}
+	// 	}
 
-		~.product-footer {
-			p {
-				.product-footer__label {
-					color: $checked;
-					border-color: $checked;
-				}
-			}
-		}
-
-		&:hover {
-			~.product-body {
-				border-color: $checked-hover;
-
-				&::before,
-				&::after {
-					border-color: inherit;
-				}
-			}
-
-			~.product-footer {
-				p {
-					.product-footer__label {
-						color: $checked-hover;
-						border-color: $checked-hover;
-					}
-				}
-			}
-		}
-	}
-
-	&-input:hover {
-		~.product-body {
-			border-color: $default-hover;
-
-			&::before,
-			&::after {
-				border-color: inherit;
-			}
-		}
-
-		~.product-footer {
-			p {
-				.product-footer__label {
-					color: $default-hover;
-					border-color: $default-hover;
-				}
-			}
-		}
-	}
+	// 	~.product-footer {
+	// 		p {
+	// 			.product-footer__label {
+	// 				color: $default-hover;
+	// 				border-color: $default-hover;
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	&-body {
 		position: relative;
@@ -185,6 +161,38 @@
 					.product-footer__label {
 						color: $default-hover;
 						border-color: $default-hover;
+					}
+				}
+			}
+		}
+
+		&--checked {
+			border-color: $checked;
+
+			&::before,
+			&::after {
+				border-color: inherit;
+			}
+
+			&:hover {
+				border-color: $checked-hover;
+
+				&::before,
+				&::after {
+					border-color: inherit;
+				}
+			}
+		}
+
+		&--hover {
+			&:hover {
+				.product-body__subtitle {
+					&--default {
+						display: none;
+					}
+
+					&--question {
+						display: block;
 					}
 				}
 			}
