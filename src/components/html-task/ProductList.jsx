@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import productActions from "../../data/actions/products";
 import { Product } from "./Product";
-import { productsData } from "../../data/products";
 
 class ProductList extends React.Component {
 
@@ -23,6 +22,7 @@ class ProductList extends React.Component {
 				product={product}
 				handleChange={this.handleChange.bind(this, product)}
 				handleMouseLeave={this.handleMouseLeave.bind(this, product)}
+				handleLabelClick={this.handleLabelClick.bind(this, product)}
 			/>
 		));
 		return (
@@ -40,7 +40,7 @@ class ProductList extends React.Component {
 	handleChange = (product, e) => {
 		const { onProductSelect, onProductDeselect } = this.props;
 		const card = e.currentTarget;
-		const cardBody = card.nextSibling;
+		const cardBody = card.nextElementSibling;
 		if (!card.checked) {
 			cardBody.classList.remove("product-body--hover");
 		}
@@ -51,10 +51,15 @@ class ProductList extends React.Component {
 
 	handleMouseLeave = (product, e) => {
 		const cardBody = e.currentTarget;
-		// console.log(card);
 		if (product.isChecked && !cardBody.classList.contains("product-body--hover")) {
 			cardBody.classList.add("product-body--hover")
 		}
+	}
+
+	handleLabelClick = (product, e) => {
+		const cardLabel = e.currentTarget;
+		const cardBody = cardLabel.parentElement.parentElement.previousElementSibling;
+		cardBody.classList.add("product-body--hover")
 	}
 }
 

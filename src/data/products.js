@@ -8,9 +8,9 @@ export const productsData = [{
 		portions: 10,
 		presents: {
 			count: 1,
-			addition: ""
+			text: ""
 		},
-		volume: 0.5
+		weight: 0.5
 	},
 	{
 		id: "fish",
@@ -22,9 +22,9 @@ export const productsData = [{
 		portions: 40,
 		presents: {
 			count: 2,
-			addition: ""
+			text: ""
 		},
-		volume: 2
+		weight: 2
 	},
 	{
 		id: "chicken",
@@ -32,12 +32,12 @@ export const productsData = [{
 		isChecked: false,
 		isDisabled: true,
 		type: "с курой",
-		description: "Нежное куриное филе.",
+		description: "Филе из цыплят с трюфелями в бульоне",
 		portions: 100,
 		presents: {
 			count: 5,
-			addition: "заказчик доволен"
+			text: "заказчик доволен"
 		},
-		volume: 5
+		weight: 5
 	}
 ];

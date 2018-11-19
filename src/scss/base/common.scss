@@ -16,12 +16,6 @@ body {
 	font-family: "TrebuchetMS", "Arial", sans-serif;
 	color: #fff;
 	background-image: url("../assets/img/pattern.png");
-	// linear-gradient(
-	//     rgba(0, 0, 0, 0.4) 0%,
-	//     rgba(0, 0, 0, 0) 20%,
-	//     rgba(0, 0, 0, 0) 80%,
-	//     rgba(0, 0, 0, 0.4) 100%
-	//   ), url("../assets/img/pattern.png");
 
 	&::before {
 		content: "";
@@ -29,28 +23,13 @@ body {
 		display: block;
 		top: 0;
 		width: 100%;
-		background: red;
-		box-shadow: 0 0 100px 100px rgba(0, 0, 0, 0.5);
-
-		// z-index: 100;
-		@media (orientation: landscape) {
-			box-shadow: 0 0 30px 30px rgba(0, 0, 0, 0.5);
-		}
-	}
-
-	&::after {
-		content: "";
-		position: fixed;
-		display: block;
-		bottom: 0;
-		width: 100%;
-		background: red;
-		box-shadow: 0 0 100px 100px rgba(0, 0, 0, 0.5);
-
-		// z-index: 100;
-		@media (orientation: landscape) {
-			box-shadow: 0 0 30px 30px rgba(0, 0, 0, 0.5);
-		}
+		height: 100vh;
+		background-image:
+			linear-gradient(rgba(0, 0, 0, 0.4) 0%,
+			rgba(0, 0, 0, 0) 20%,
+			rgba(0, 0, 0, 0) 80%,
+			rgba(0, 0, 0, 0.4) 100%);
+		z-index: -100;
 	}
 
 	#root {
@@ -64,28 +43,12 @@ img {
 }
 
 .app {
-	width: 320px;
+	min-width: 320px;
+	max-width: 1200px;
 	height: 100%;
-	min-height: 622px;
+	// min-height: 622px;
 	margin: 0 auto;
-
-	// display: flex;
-	// flex-direction: column;
-
-	background-color: rgba(255, 255, 255, 0.4);
 }
-
-@media (min-width: $tablet-width) {
-	.app {
-		width: 660px;
-	}
-}
-
-// @media (min-width: $desktop-width) {
-//   .app {
-//     width: 1200px;
-//   }
-// }
 
 .visually-hidden:not(:focus):not(:active),
 input[type="checkbox"].visually-hidden,

@@ -2,24 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import store from "../data/store";
 import { BrowserRouter, Route } from "react-router-dom";
-import Main from "./Main";
-import HtmlTask from "./HtmlTask";
-import JsTask from "./JsTask";
-
-const routes = [
-	{
-		path: "/",
-		component: Main
-	},
-	{
-		path: "/Html_task",
-		component: HtmlTask
-	},
-	{
-		path: "/Js_task",
-		component: JsTask
-	}
-];
+import { routes } from "../lib/routes";
 
 class App extends React.Component {
 	render() {
