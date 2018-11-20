@@ -1,7 +1,8 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-export default class Main extends React.Component {
+class Main extends React.Component {
 	render() {
 		return (
 			<div className="main">
@@ -15,3 +16,5 @@ export default class Main extends React.Component {
 		);
 	}
 }
+
+export default withRouter(Main);
