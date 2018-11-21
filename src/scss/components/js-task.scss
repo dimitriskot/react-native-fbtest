@@ -1,0 +1,23 @@
+@import "./js-task/map-editor";
+@import "./js-task/map-form";
+
+.js-task {
+	position: relative;
+	width: 100%;
+	min-height: 100%;
+	display: flex;
+	align-items: center;
+	padding: 30px 10px 0;
+	// overflow-y: auto;
+
+	&__content {
+		width: 100%;
+
+		// display: flex;
+		// justify-content: space-between;
+		// padding-top: 20px;
+		&-containerElement {
+			display: flex;
+		}
+	}
+}
