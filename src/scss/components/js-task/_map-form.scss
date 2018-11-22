@@ -1,17 +1,33 @@
 .map-form {
 	width: 40%;
+	height: 100%;
+	margin: 10px 30px;
 	padding: 10px 30px;
+	background: rgba(0, 0, 0, 0.4);
 
 	&__list {
 		width: 100%;
+		min-height: 100%;
+		margin: 0;
+		padding: 10px 0;
 		display: flex;
 		flex-direction: column;
+		list-style: none;
+		// user-select: none;
+		overflow-y: scroll;
+		transition: none !important;
 
 		&-item {
 			width: 100%;
+			height: 60px;
 			display: flex;
 			justify-content: space-between;
-			margin-bottom: 10px;
+			margin-bottom: 2px;
+			color: #000000;
+			background: #ffffff;
+			line-height: 40px;
+			z-index: 100;
+			// cursor: row-resize;
 		}
 	}
 }

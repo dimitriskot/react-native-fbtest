@@ -1,6 +1,5 @@
 import React from "react";
-import MapForm from "./MapForm";
-import Map from "./Map";
+import MapForm from "./form/MapForm";
 import PureMap from "../common/PureMap";
 
 export default class MapEditor extends React.Component {
@@ -13,27 +12,21 @@ export default class MapEditor extends React.Component {
 		this.state = {
 			value: "",
 			points: [],
-			markers: [],
 			center: {
 				lat: 55.734168,
 				lng: 37.623938
 			},
 			directions: null,
 			zoom: 16,
-			isMarkerShown: true
+			isMarkerShown: true,
+			dragEl: null
 		}
-	}
-
-	componentDidMount() {
-		this.getMap();
-		this.getDirections();
 	}
 
 	render() {
 		const {
 			value,
 			points,
-			markers,
 			zoom,
 			isMarkerShown,
 			center,
@@ -49,63 +42,41 @@ export default class MapEditor extends React.Component {
 					onDeleteButtonClick={this.handleDeleteButtonClick}
 					onEnterDown={this.handleEnterPress}
 					points={points}
+					changePointsOrder={this.changePointsOrder}
 				/>
 				<PureMap
-					// map={this.map}
-					// isMarkerShown={isMarkerShown}
-					// getMapRef={this.getMapRef}
-					// getMapCenter={this.getMapCenter}
-					// isMarkerShown={isMarkerShown}
-					// zoom={zoom}
-					// center={center}
-					// onMarkerClick={this.handleMarkerClick}
-					// // getRoute={this.getRoute}
-					// markers={markers}
-					// directions={directions}
+					map={this.map}
+					isMarkerShown={isMarkerShown}
+					getMapRef={this.getMap}
+					getMapCenter={this.getMapCenter}
+					isMarkerShown={isMarkerShown}
+					zoom={zoom}
+					center={center}
+					onMarkerClick={this.handleMarkerClick}
+					markers={points}
+					directions={directions}
 					{...this.getMapProps()}
 				/>
 			</div>
 		);
 	}
 
-	// onDragEnd = () => {
-	// 	this.getRoute();
-	// }
+	changePointsOrder = (points) => {
+		this.setState({ points }, () => this.getRoute())
+		// this.setState({ points });
+	}
 
 	getMapProps = () => {
 		return {
-			// googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyDM_DVnbVRiQLfPIOwyDFbwg5X_HIG62_Y",
-			// loadingElement: <div style={{ height: `100%` }} />,
-			containerElement: <div id={"map-1"} style={{ width: `70%`, height: `600px` }} />,
-			mapElement: <div id={"map-2"} style={{ height: `100%` }} />
+			googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyDM_DVnbVRiQLfPIOwyDFbwg5X_HIG62_Y",
+			loadingElement: <div style={{ height: `100%` }} />,
+			containerElement: <div style={{ width: `70%`, height: `600px` }} />,
+			mapElement: <div style={{ height: `100%` }} />
 		}
 	}
 
-	getMapRef = (map) => {
+	getMap = (map) => {
 		this.map = map;
-		console.log(this.map);
-	}
-
-	getMap = () => {
-		const {
-			zoom,
-			center
-		} = this.state;
-		var mapOpt = {
-			zoom,
-			center
-		};
-		this.map = new google.maps.Map(document.getElementById('map-2'), mapOpt);
-	}
-
-	getDirections = () => {
-		this.service = new google.maps.DirectionsService;
-		this.display = new google.maps.DirectionsRenderer;
-		this.display.setMap(this.map);
-		this.display.setOptions({
-			suppressMarkers: true,
-			preserveViewport: true
-		});
 	}
 
 	getMapCenter = () => {
@@ -117,23 +88,31 @@ export default class MapEditor extends React.Component {
 		this.setState({ value });
 	}
 
-	handleCreateButtonClick = () => {
-		const points = this.state.points;
-		const id = '_' + Math.random().toString(36).substr(2, 9);
-		const point = {
+	createPoint = () => {
+		return {
+			id: '_' + Math.random().toString(36).substr(2, 9),
 			title: this.state.value,
-			id
+			index: this.state.points.length,
+			position: this.getMapCenter(),
+			draggable: true,
+			handleDragEnd: (index, marker) => this.handleMarkerDragEnd(index, marker)
 		}
+	}
+
+	handleCreateButtonClick = () => {
+		const points = [...this.state.points];
+		const point = this.createPoint();
 		points.push(point);
 		const value = "";
-		this.setState({ value, points }, () => this.createMarker());
+		this.setState({ value, points }, () => this.getRoute());
 	}
 
 	handleDeleteButtonClick = (id) => {
-		let points = this.state.points;
+		let points = [...this.state.points];
 		const index = points.findIndex((point) => point.id === id);
 		points.splice(index, 1);
-		this.setState({ points });
+		const isPoints = points.length > 0;
+		this.setState({ points }, () => { isPoints && this.getRoute() });
 	}
 
 	handleEnterPress = (e) => {
@@ -143,55 +122,43 @@ export default class MapEditor extends React.Component {
 		this.handleCreateButtonClick();
 	}
 
-	createMarker = () => {
-		const markers = [...this.state.markers];
-		const position = this.getMapCenter();
-		const marker = new google.maps.Marker({
-			position,
-			map: this.map,
-			draggable: true
-		});
-		marker.addListener('dragend', () => this.getRoute(this.service, this.display));
-		markers.push(marker)
-		const isRoute = markers.length > 1;
-		// this.setState({ markers }, () => { isRoute && this.getRoute() });
-		this.setState({ markers }, () => this.getRoute(this.service, this.display));
+	handleMarkerDragEnd = (index, { latLng }) => {
+		const position = latLng;
+		let points = this.state.points;
+		points = points.map((point, i) => (
+			i === index
+				? { ...point, position }
+				: point
+		));
+		this.setState({ points }, () => this.getRoute());
 	}
 
-	getRoute = (service, display) => {
-		const { markers } = this.state;
-		const waypts = markers.map(({ position }) => (
+	getRoute = () => {
+		const { points } = this.state;
+		const DirectionsService = new google.maps.DirectionsService();
+		const waypoints = points.map(({ position }) => (
 			{
 				location: position,
 				stopover: true
 			}
 		));
 
-		console.log(waypts[0].location);
-		console.log(waypts[waypts.length - 1].location);
+		const origin = points[0].position;
+		const destination = points[points.length - 1].position;
 
-		// const origin = waypts.shift().location;
-		// const destination = waypts.pop().location;
-
-		const origin = markers[0].position;
-		const destination = markers[markers.length - 1].position;
-
-		service.route({
+		DirectionsService.route({
 			origin,
 			destination,
-			waypoints: waypts,
+			waypoints,
 			optimizeWaypoints: false,
-			travelMode: 'WALKING',
-			// travelMode: google.maps.TravelMode.WALKING,
+			travelMode: google.maps.TravelMode.WALKING,
 		}, (result, status) => {
 			if (status === google.maps.DirectionsStatus.OK) {
-				console.log(result);
-				display.setDirections(result);
-				// this.setState({
-				// 	directions: result,
-				// });
+				this.setState({
+					directions: result,
+				});
 			} else {
-				console.error(`error fetching directions ${result}`);
+				console.error(`Directions request failed due to ${result}`);
 			}
 		});
 	}

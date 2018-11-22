@@ -1,5 +1,6 @@
 import React from "react";
 import * as classNames from "classnames";
+import { SortableElement } from 'react-sortable-hoc';
 
 const MapForm = props => {
 	const {
@@ -8,12 +9,22 @@ const MapForm = props => {
 		onCreateButtonClick,
 		onDeleteButtonClick,
 		onEnterDown,
-		points
+		points,
+		onListDragStart,
+		onPointDragOver,
+		onListDragEnd
 	} = props;
+
 	const pointList = points.map((point, i) => (
 		<li
-			key={i}
+			key={point.id}
+			data-index={i}
 			className="map-form__list-item"
+			draggable={true}
+			// onDragOver={onPointDragOver.bind(this)}
+			onDragOver={onPointDragOver.bind(this)}
+			onDragEnd={onListDragEnd.bind(this)}
+			onDragStartCapture={onListDragStart.bind(this)}
 		>
 			{point.title}
 			<button onClick={onDeleteButtonClick.bind(this, point.id)}>
@@ -36,7 +47,12 @@ const MapForm = props => {
 			<button onClick={onCreateButtonClick} disabled={!value}>
 				Создать
 			</button>
-			<ul className="map-form__list">
+			<ul
+				className="map-form__list outline-1"
+			// onDragStartCapture={onListDragStart}
+			// onDragOver={onPointDragOver}
+			// onDragEnd={onListDragEnd}
+			>
 				{pointList}
 			</ul>
 		</div>
