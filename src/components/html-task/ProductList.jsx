@@ -1,91 +1,88 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import productActions from "../../data/actions/products";
-import { Product } from "./Product";
+import Product from "./Product";
 
-class ProductList extends React.Component {
+class ProductListComponent extends React.Component {
+  componentDidMount() {
+    const { onProductsDefaultSelect } = this.props;
+    onProductsDefaultSelect();
+  }
 
-	constructor(props) {
-		super(props)
-	}
+  isProductSelect = product => {
+    const { products } = this.props;
+    return products.findIndex(el => el.id === product.id) > -1;
+  };
 
-	componentDidMount() {
-		const { onProductsDefaultSelect } = this.props;
-		onProductsDefaultSelect();
-	}
+  handleChange = (product, e) => {
+    const { onProductSelect, onProductDeselect } = this.props;
+    const card = e.currentTarget;
+    const cardBody = card.nextElementSibling;
+    if (!card.checked) {
+      cardBody.classList.remove("product-body--hover");
+    }
+    product.isChecked ? onProductDeselect(product) : onProductSelect(product);
+  };
 
-	render() {
-		const { products } = this.props;
-		const productList = products.map((product, i) => (
-			<Product
-				key={i}
-				product={product}
-				handleChange={this.handleChange.bind(this, product)}
-				handleMouseLeave={this.handleMouseLeave.bind(this, product)}
-				handleLabelClick={this.handleLabelClick.bind(this, product)}
-			/>
-		));
-		return (
-			<div className="product-list">
-				{productList}
-			</div>
-		);
-	}
+  handleMouseLeave = (product, e) => {
+    const cardBody = e.currentTarget;
+    if (product.isChecked && !cardBody.classList.contains("product-body--hover")) {
+      cardBody.classList.add("product-body--hover");
+    }
+  };
 
-	isProductSelect = (product) => {
-		const { products } = this.props;
-		return products.findIndex((el) => el.id === product.id) > -1;
-	}
+  handleLabelClick = (product, e) => {
+    const cardLabel = e.currentTarget;
+    const cardBody = cardLabel.parentElement.parentElement.previousElementSibling;
+    cardBody.classList.add("product-body--hover");
+  };
 
-	handleChange = (product, e) => {
-		const { onProductSelect, onProductDeselect } = this.props;
-		const card = e.currentTarget;
-		const cardBody = card.nextElementSibling;
-		if (!card.checked) {
-			cardBody.classList.remove("product-body--hover");
-		}
-		product.isChecked
-			? onProductDeselect(product)
-			: onProductSelect(product);
-	}
-
-	handleMouseLeave = (product, e) => {
-		const cardBody = e.currentTarget;
-		if (product.isChecked && !cardBody.classList.contains("product-body--hover")) {
-			cardBody.classList.add("product-body--hover")
-		}
-	}
-
-	handleLabelClick = (product, e) => {
-		const cardLabel = e.currentTarget;
-		const cardBody = cardLabel.parentElement.parentElement.previousElementSibling;
-		cardBody.classList.add("product-body--hover")
-	}
+  render() {
+    const { products } = this.props;
+    const productList = products.map((product) => (
+      <Product
+        key={product.id}
+        product={product}
+        handleChange={this.handleChange.bind(this, product)}
+        handleMouseLeave={this.handleMouseLeave.bind(this, product)}
+        handleLabelClick={this.handleLabelClick.bind(this, product)}
+      />
+    ));
+    return <div className={"product-list"}>{productList}</div>;
+  }
 }
 
-const mapStateToProps = (state) => {
-	return {
-		products: state.productsReducer.products
-	}
-}
+const mapStateToProps = state => {
+  return {
+    products: state.productsReducer.products
+  };
+};
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		onProductSelect: (product) => {
-			dispatch(productActions.productSelect(product))
-		},
-		onProductDeselect: (product) => {
-			dispatch(productActions.productDeselect(product))
-		},
-		onProductsDefaultSelect: () => {
-			dispatch(productActions.productsDefaultSelect())
-		}
-	}
-}
+const mapDispatchToProps = dispatch => {
+  return {
+    onProductSelect: product => {
+      dispatch(productActions.productSelect(product));
+    },
+    onProductDeselect: product => {
+      dispatch(productActions.productDeselect(product));
+    },
+    onProductsDefaultSelect: () => {
+      dispatch(productActions.productsDefaultSelect());
+    }
+  };
+};
 
-ProductList = connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(ProductList);
+ProductListComponent.propTypes = {
+  products: PropTypes.array,
+  onProductsDefaultSelect: PropTypes.func,
+  onProductSelect: PropTypes.func,
+  onProductDeselect: PropTypes.func
+};
+
+const ProductList = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ProductListComponent);
 
 export default ProductList;

@@ -1,43 +1,64 @@
 import React from "react";
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer } from "react-google-maps"
+import PropTypes from "prop-types";
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  Marker,
+  DirectionsRenderer
+} from "react-google-maps";
 
-const PureMap = (props) => {
-	const {
-		zoom,
-		isMarkerShown,
-		center,
-		directions,
-		getMapRef,
-		getMapCenter,
-		markers,
-		onDragEnd
-	} = props;
+const PureMap = props => {
+  const {
+    zoom,
+    center,
+    directions,
+    getMapRef,
+    getMapCenter,
+    markers,
+    onDragEnd
+  } = props;
 
-	const markerList = markers.map((marker, i) => (
-		<Marker
-			key={i}
-			position={marker.position}
-			draggable={marker.draggable}
-			onDragEnd={marker.handleDragEnd.bind(this, i)}
-		/>
-	));
+  const markerList = markers.map(({ id, position, draggable, handleDragEnd }) => (
+    <Marker
+      key={id}
+      position={position}
+      draggable={draggable}
+      onDragEnd={handleDragEnd.bind(this, id)}
+    />
+  ));
 
-	return (
-		<GoogleMap
-			ref={getMapRef}
-			defaultZoom={zoom}
-			defaultCenter={center}
-			onCenterChanged={getMapCenter}
-			options={{ draggable: true }}
-			onDragEnd={onDragEnd}
-		>
-			{markerList}
-			{directions && <DirectionsRenderer directions={directions} options={{
-				suppressMarkers: true,
-				preserveViewport: true
-			}} />}
-		</GoogleMap>
-	)
+  return (
+    <GoogleMap
+      ref={getMapRef}
+      defaultZoom={zoom}
+      defaultCenter={center}
+      onCenterChanged={getMapCenter}
+      options={{ draggable: true }}
+      onDragEnd={onDragEnd}
+    >
+      {markerList}
+      {directions && (
+        <DirectionsRenderer
+          directions={directions}
+          options={{
+            suppressMarkers: true,
+            preserveViewport: true
+          }}
+        />
+      )}
+    </GoogleMap>
+  );
+};
+
+PureMap.propTypes = {
+  zoom: PropTypes.number,
+  center: PropTypes.object,
+  directions: PropTypes.object,
+  getMapRef: PropTypes.func,
+  getMapCenter: PropTypes.func,
+  markers: PropTypes.array,
+  onDragEnd: PropTypes.func
 };
 
 export default withScriptjs(withGoogleMap(PureMap));

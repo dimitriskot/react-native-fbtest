@@ -1,59 +1,64 @@
 import React from "react";
-import * as classNames from "classnames";
-import PropTypes from 'prop-types';
-import { arrayMove } from 'react-sortable-hoc';
+import PropTypes from "prop-types";
+import { arrayMove } from "react-sortable-hoc";
 import PointList from "./PointList";
 
 class MapForm extends React.Component {
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    const { points, changePointsOrder } = this.props;
+    const newPoints = arrayMove(points, oldIndex, newIndex);
+    changePointsOrder(newPoints);
+  };
 
-	onSortEnd = ({ oldIndex, newIndex }) => {
-		const newPoints = arrayMove(this.props.points, oldIndex, newIndex);
-		this.props.changePointsOrder(newPoints);
-	};
+  onSortStart = (sort, event) => {
+    console.log("sort ", sort);
+    console.log("event ", event);
+  };
 
-	onSortStart = (sort, event) => {
-		console.log(`sort `, sort);
-		console.log(`event `, event);
-	};
+  render() {
+    const {
+      value,
+      onValueChange,
+      onCreateButtonClick,
+      onDeleteButtonClick,
+      onEnterDown,
+      points
+    } = this.props;
 
-	render() {
-		const {
-			value,
-			onValueChange,
-			onCreateButtonClick,
-			onDeleteButtonClick,
-			onEnterDown,
-			points,
-			onSortEnd
-		} = this.props;
-
-		return (
-
-			<div className="map-form">
-				<p className="map-form__text">Создать точку маршрута:</p>
-				<input
-					type="text"
-					name="point"
-					value={value}
-					onChange={onValueChange}
-					onKeyDown={onEnterDown}
-					maxLength={21}
-					required={true}
-				/>
-				<button onClick={onCreateButtonClick} disabled={!value}>
-					Создать
-				</button>
-				<PointList points={points} onDeleteButtonClick={onDeleteButtonClick} onSortEnd={this.onSortEnd}
-					onSortStart={this.onSortStart} />
-			</div>
-		);
-	}
-};
+    return (
+      <div className={"map-form"}>
+        <p className={"map-form__text"}>Создать точку маршрута:</p>
+        <input
+          type={"text"}
+          name={"point"}
+          value={value}
+          onChange={onValueChange}
+          onKeyDown={onEnterDown}
+          maxLength={21}
+          required
+        />
+        <button onClick={onCreateButtonClick} disabled={!value}>
+          Создать
+        </button>
+        <PointList
+          points={points}
+          onDeleteButtonClick={onDeleteButtonClick}
+          onSortEnd={this.onSortEnd}
+          onSortStart={this.onSortStart}
+        />
+      </div>
+    );
+  }
+}
 
 MapForm.propTypes = {
-	changeOrder: PropTypes.func,
-	places: PropTypes.object,
-	placesOrder: PropTypes.array,
+  value: PropTypes.string,
+  onValueChange: PropTypes.func,
+  onCreateButtonClick: PropTypes.func,
+  onDeleteButtonClick: PropTypes.func,
+  onEnterDown: PropTypes.func,
+  changePointsOrder: PropTypes.func,
+  points: PropTypes.array
 };
 
 export default MapForm;
