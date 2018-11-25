@@ -22,8 +22,11 @@
     }
   },
   "rules": {
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
     "linebreak-style": "off",
-    "arrow-parens": "off",
     "object-curly-newline": "off",
     "no-mixed-operators": "off",
     "arrow-body-style": "off",

@@ -1,4 +1,6 @@
 import React from "react";
+import MediaQuery from "react-responsive";
+import classNames from "classnames";
 import MapForm from "./form/MapForm";
 import PureMap from "../common/PureMap";
 
@@ -17,25 +19,25 @@ export default class MapEditor extends React.Component {
       },
       directions: null,
       zoom: 16,
-      isMarkerShown: true
+      isRouteListOpen: false
     };
   }
-
-  changePointsOrder = points => {
-    this.setState({ points }, () => this.getRoute());
-  };
 
   getMapProps = () => {
     return {
       googleMapURL:
         "https://maps.googleapis.com/maps/api/js?key=AIzaSyDM_DVnbVRiQLfPIOwyDFbwg5X_HIG62_Y",
-      loadingElement: <div style={{ height: "100%" }} />,
-      containerElement: <div style={{ width: "70%", height: "600px" }} />,
-      mapElement: <div style={{ height: "100%" }} />
+      loadingElement: <div className={"loadingElement"} style={{ height: "100%" }} />,
+      containerElement: <div className={"containerElement"} />,
+      mapElement: <div className={"mapElement"} />
     };
   };
 
-  getMap = map => {
+  changePointsOrder = (points) => {
+    this.setState({ points }, () => this.getRoute());
+  };
+
+  getMap = (map) => {
     this.map = map;
   };
 
@@ -43,7 +45,7 @@ export default class MapEditor extends React.Component {
     return this.map.getCenter();
   };
 
-  handleValueChange = e => {
+  handleValueChange = (e) => {
     const value = e.currentTarget.value;
     this.setState({ value });
   };
@@ -69,9 +71,9 @@ export default class MapEditor extends React.Component {
     this.setState({ value, points }, () => this.getRoute());
   };
 
-  handleDeleteButtonClick = id => {
+  handleDeleteButtonClick = (id) => {
     const { points } = this.state;
-    const index = points.findIndex(point => point.id === id);
+    const index = points.findIndex((point) => point.id === id);
     points.splice(index, 1);
     const isPoints = points.length > 0;
     this.setState({ points }, () => {
@@ -79,8 +81,9 @@ export default class MapEditor extends React.Component {
     });
   };
 
-  handleEnterPress = e => {
-    if (e.key !== this.ENTER_KEY) {
+  handleEnterPress = (e) => {
+    const { value } = this.state;
+    if (e.key !== this.ENTER_KEY || !value) {
       return;
     }
     this.handleCreateButtonClick();
@@ -125,30 +128,57 @@ export default class MapEditor extends React.Component {
     );
   };
 
+  toggleMapForm = (e) => {
+    e.preventDefault();
+    const { isRouteListOpen } = this.state;
+    this.setState({ isRouteListOpen: !isRouteListOpen });
+  }
+
   render() {
-    const { value, points, zoom, isMarkerShown, center, directions } = this.state;
+    const { value, points, zoom, center, directions, isRouteListOpen } = this.state;
 
     return (
-      <div className={"map-editor outline-3"}>
-        <MapForm
-          value={value}
-          onValueChange={this.handleValueChange}
-          onCreateButtonClick={this.handleCreateButtonClick}
-          onDeleteButtonClick={this.handleDeleteButtonClick}
-          onEnterDown={this.handleEnterPress}
-          points={points}
-          changePointsOrder={this.changePointsOrder}
-        />
+      <div className={"map-editor"}>
+        <MediaQuery maxWidth={768}>
+          <button
+            className={classNames(
+              "map-editor__button",
+              isRouteListOpen && "map-editor__button--close"
+            )}
+            onClick={this.toggleMapForm}
+          >
+            {isRouteListOpen ? "Закрыть" : "Маршрут"}
+          </button>
+          {isRouteListOpen && (
+            <MapForm
+              value={value}
+              onValueChange={this.handleValueChange}
+              onCreateButtonClick={this.handleCreateButtonClick}
+              onDeleteButtonClick={this.handleDeleteButtonClick}
+              onEnterDown={this.handleEnterPress}
+              points={points}
+              changePointsOrder={this.changePointsOrder}
+            />
+          )}
+        </MediaQuery>
+        <MediaQuery minWidth={769}>
+          <MapForm
+            value={value}
+            onValueChange={this.handleValueChange}
+            onCreateButtonClick={this.handleCreateButtonClick}
+            onDeleteButtonClick={this.handleDeleteButtonClick}
+            onEnterDown={this.handleEnterPress}
+            points={points}
+            changePointsOrder={this.changePointsOrder}
+          />
+        </MediaQuery>
         <PureMap
-          map={this.map}
-          isMarkerShown={isMarkerShown}
-          getMapRef={this.getMap}
-          getMapCenter={this.getMapCenter}
           zoom={zoom}
           center={center}
-          onMarkerClick={this.handleMarkerClick}
           markers={points}
           directions={directions}
+          getMapRef={this.getMap}
+          getMapCenter={this.getMapCenter}
           {...this.getMapProps()}
         />
       </div>

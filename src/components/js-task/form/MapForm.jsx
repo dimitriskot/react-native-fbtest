@@ -10,11 +10,6 @@ class MapForm extends React.Component {
     changePointsOrder(newPoints);
   };
 
-  onSortStart = (sort, event) => {
-    console.log("sort ", sort);
-    console.log("event ", event);
-  };
-
   render() {
     const {
       value,
@@ -27,24 +22,31 @@ class MapForm extends React.Component {
 
     return (
       <div className={"map-form"}>
-        <p className={"map-form__text"}>Создать точку маршрута:</p>
-        <input
-          type={"text"}
-          name={"point"}
-          value={value}
-          onChange={onValueChange}
-          onKeyDown={onEnterDown}
-          maxLength={21}
-          required
-        />
-        <button onClick={onCreateButtonClick} disabled={!value}>
-          Создать
-        </button>
+        <div className={"map-form__header"}>
+          <p className={"map-form__header-text"}>Создать точку маршрута:</p>
+          <input
+            className={"map-form__header-input"}
+            type={"text"}
+            name={"point"}
+            value={value}
+            onChange={onValueChange}
+            onKeyDown={onEnterDown}
+            maxLength={50}
+            autoComplete={"off"}
+            required
+          />
+          <button
+            className={"map-form__header-button"}
+            onClick={onCreateButtonClick}
+            disabled={!value}
+          >
+            Создать
+          </button>
+        </div>
         <PointList
           points={points}
           onDeleteButtonClick={onDeleteButtonClick}
           onSortEnd={this.onSortEnd}
-          onSortStart={this.onSortStart}
         />
       </div>
     );

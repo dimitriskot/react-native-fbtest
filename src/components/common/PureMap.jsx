@@ -8,15 +8,14 @@ import {
   DirectionsRenderer
 } from "react-google-maps";
 
-const PureMap = props => {
+const PureMap = (props) => {
   const {
     zoom,
     center,
+    markers,
     directions,
     getMapRef,
-    getMapCenter,
-    markers,
-    onDragEnd
+    getMapCenter
   } = props;
 
   const markerList = markers.map(({ id, position, draggable, handleDragEnd }) => (
@@ -34,8 +33,6 @@ const PureMap = props => {
       defaultZoom={zoom}
       defaultCenter={center}
       onCenterChanged={getMapCenter}
-      options={{ draggable: true }}
-      onDragEnd={onDragEnd}
     >
       {markerList}
       {directions && (
