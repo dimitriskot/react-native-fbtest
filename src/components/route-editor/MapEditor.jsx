@@ -2,7 +2,7 @@ import React from "react";
 import MediaQuery from "react-responsive";
 import classNames from "classnames";
 import MapForm from "./form/MapForm";
-import PureMap from "../common/PureMap";
+import MapComponent from "./map/MapComponent";
 
 export default class MapEditor extends React.Component {
   ENTER_KEY = "Enter";
@@ -22,16 +22,6 @@ export default class MapEditor extends React.Component {
       isRouteListOpen: false
     };
   }
-
-  getMapProps = () => {
-    return {
-      googleMapURL:
-        "https://maps.googleapis.com/maps/api/js?key=AIzaSyDM_DVnbVRiQLfPIOwyDFbwg5X_HIG62_Y",
-      loadingElement: <div className={"loadingElement"} style={{ height: "100%" }} />,
-      containerElement: <div className={"containerElement"} />,
-      mapElement: <div className={"mapElement"} />
-    };
-  };
 
   changePointsOrder = (points) => {
     this.setState({ points }, () => this.getRoute());
@@ -172,14 +162,13 @@ export default class MapEditor extends React.Component {
             changePointsOrder={this.changePointsOrder}
           />
         </MediaQuery>
-        <PureMap
+        <MapComponent
           zoom={zoom}
           center={center}
           markers={points}
           directions={directions}
           getMapRef={this.getMap}
           getMapCenter={this.getMapCenter}
-          {...this.getMapProps()}
         />
       </div>
     );

@@ -1,6 +1,6 @@
 import Main from "../components/Main";
 import Market from "../components/market/Market";
-import JsTask from "../components/JsTask";
+import RouteEditor from "../components/route-editor/RouteEditor";
 
 const routes = [{
   path: "/",
@@ -15,10 +15,10 @@ const routes = [{
   id: "market"
 },
 {
-  path: "/Js_task",
+  path: "/route-editor",
   exact: false,
-  component: JsTask,
-  id: "js_task"
+  component: RouteEditor,
+  id: "route-editor"
 }
 ];
 

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { compose, withProps } from "recompose";
 import {
   withScriptjs,
   withGoogleMap,
@@ -8,7 +9,16 @@ import {
   DirectionsRenderer
 } from "react-google-maps";
 
-const PureMap = (props) => {
+const MapComponent = compose(
+  withProps({
+    googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyDM_DVnbVRiQLfPIOwyDFbwg5X_HIG62_Y",
+    loadingElement: <div className={"loadingElement"} style={{ height: "100%" }} />,
+    containerElement: <div className={"containerElement"} />,
+    mapElement: <div className={"mapElement"} />
+  }),
+  withScriptjs,
+  withGoogleMap
+)((props) => {
   const {
     zoom,
     center,
@@ -46,9 +56,9 @@ const PureMap = (props) => {
       )}
     </GoogleMap>
   );
-};
+});
 
-PureMap.propTypes = {
+MapComponent.propTypes = {
   zoom: PropTypes.number,
   center: PropTypes.object,
   directions: PropTypes.object,
@@ -58,4 +68,4 @@ PureMap.propTypes = {
   onDragEnd: PropTypes.func
 };
 
-export default withScriptjs(withGoogleMap(PureMap));
+export default MapComponent;

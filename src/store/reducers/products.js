@@ -40,8 +40,6 @@ const productsReducer = handleActions({
       };
     })
   })
-}, {
-  products: initialState.products
-});
+}, { products: initialState.products });
 
 export default productsReducer;

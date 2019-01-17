@@ -1,6 +1,6 @@
-# react-native-template
+# react-native-fbtest
 
-simple react app
+test task (simple react app)
 
 ## platform
 

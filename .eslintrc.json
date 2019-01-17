@@ -27,12 +27,8 @@
       "always"
     ],
     "linebreak-style": "off",
-    "object-curly-newline": ["error", {
-      "ObjectExpression": "always",
-      "ObjectPattern": "consistent",
-      "ImportDeclaration": "consistent",
-      "ExportDeclaration": "consistent"
-    }],
+    "object-curly-newline": ["error", {"multiline": true}],
+    "object-curly-spacing": ["error", "always"],
     "no-mixed-operators": "off",
     "arrow-body-style": "off",
     "function-paren-newline": ["error", "consistent"],
