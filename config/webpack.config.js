@@ -20,8 +20,9 @@ const config = {
     publicPath: ""
   },
   devServer: isProduction ? {} : {
+    host: process.env.HOST || "127.0.0.1",
     hot: true,
-    historyApiFallback: true,
+    historyApiFallback: true
   },
   resolve: {
     extensions: ["*", ".js", ".jsx"]

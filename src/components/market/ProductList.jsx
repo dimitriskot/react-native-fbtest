@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import productActions from "../../data/actions/products";
 import Product from "./Product";
 
 class ProductListComponent extends React.Component {
@@ -10,9 +8,9 @@ class ProductListComponent extends React.Component {
     onProductsDefaultSelect();
   }
 
-  isProductSelect = product => {
+  isProductSelect = (product) => {
     const { products } = this.props;
-    return products.findIndex(el => el.id === product.id) > -1;
+    return products.findIndex((el) => el.id === product.id) > -1;
   };
 
   handleChange = (product, e) => {
@@ -53,26 +51,6 @@ class ProductListComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    products: state.productsReducer.products
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onProductSelect: product => {
-      dispatch(productActions.productSelect(product));
-    },
-    onProductDeselect: product => {
-      dispatch(productActions.productDeselect(product));
-    },
-    onProductsDefaultSelect: () => {
-      dispatch(productActions.productsDefaultSelect());
-    }
-  };
-};
-
 ProductListComponent.propTypes = {
   products: PropTypes.array,
   onProductsDefaultSelect: PropTypes.func,
@@ -80,9 +58,4 @@ ProductListComponent.propTypes = {
   onProductDeselect: PropTypes.func
 };
 
-const ProductList = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ProductListComponent);
-
-export default ProductList;
+export default ProductListComponent;
