@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { compose, withProps } from "recompose";
+import { compose, withProps, withHandlers } from "recompose";
 import {
   withScriptjs,
   withGoogleMap,
@@ -16,19 +16,33 @@ const MapComponent = compose(
     containerElement: <div className={"containerElement"} />,
     mapElement: <div className={"mapElement"} />
   }),
+  withHandlers((props) => {
+    const { getMapCenter } = props;
+    const refs = { map: undefined };
+    return {
+      getRef: () => (ref) => {
+        refs.map = ref;
+      },
+      getCenter: () => () => {
+        getMapCenter(refs.map.getCenter());
+      }
+    };
+  }),
   withScriptjs,
   withGoogleMap
 )((props) => {
   const {
-    zoom,
-    center,
-    markers,
-    directions,
-    getMapRef,
-    getMapCenter
+    getRef,
+    getCenter,
+    map: {
+      zoom,
+      center,
+      points,
+      directions
+    }
   } = props;
 
-  const markerList = markers.map(({ id, position, draggable, handleDragEnd }) => (
+  const markerList = points.map(({ id, position, draggable, handleDragEnd }) => (
     <Marker
       key={id}
       position={position}
@@ -39,10 +53,10 @@ const MapComponent = compose(
 
   return (
     <GoogleMap
-      ref={getMapRef}
+      ref={getRef}
       defaultZoom={zoom}
       defaultCenter={center}
-      onCenterChanged={getMapCenter}
+      onCenterChanged={getCenter}
     >
       {markerList}
       {directions && (
@@ -58,14 +72,22 @@ const MapComponent = compose(
   );
 });
 
+
 MapComponent.propTypes = {
-  zoom: PropTypes.number,
-  center: PropTypes.object,
-  directions: PropTypes.object,
-  getMapRef: PropTypes.func,
-  getMapCenter: PropTypes.func,
-  markers: PropTypes.array,
-  onDragEnd: PropTypes.func
+  map: PropTypes.shape({
+    zoom: PropTypes.number.isRequired,
+    center: PropTypes.object.isRequired,
+    directions: PropTypes.object,
+    points: PropTypes.array.isRequired
+  }).isRequired,
+  getRef: PropTypes.func,
+  getCenter: PropTypes.func
+
+  // directions: PropTypes.object,
+  // getMapRef: PropTypes.func,
+  // getMapCenter: PropTypes.func,
+  // markers: PropTypes.array,
+  // onDragEnd: PropTypes.func
 };
 
 export default MapComponent;

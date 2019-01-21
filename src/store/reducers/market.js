@@ -1,8 +1,8 @@
 import { handleActions } from "redux-actions";
-import types from "../../lib/action-types";
+import types from "../../lib/action-types/market";
 import initialState from "../../data/initial-state";
 
-const productsReducer = handleActions({
+const market = handleActions({
   [types.PRODUCT_SELECT]: (state, { payload: { id } }) => ({
     products: [...state.products].map((product) => {
       if (product.id === id) {
@@ -42,4 +42,4 @@ const productsReducer = handleActions({
   })
 }, { products: initialState.products });
 
-export default productsReducer;
+export default market;

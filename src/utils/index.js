@@ -1,11 +1,15 @@
-const numberDeclension = (n, titles) => {
+export const numberDeclension = (number, titles) => {
   return titles[
-    n % 10 === 1 && n % 100 !== 11
+    number % 10 === 1 && number % 100 !== 11
       ? 0
-      : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)
+      : number % 10 >= 2 && number % 10 <= 4 && (number % 100 < 10 || number % 100 >= 20)
         ? 1
         : 2
   ];
 };
 
-export default numberDeclension;
+export const randomId = () => {
+  return `_${Math.random()
+    .toString(36)
+    .substr(2, 9)}`;
+};

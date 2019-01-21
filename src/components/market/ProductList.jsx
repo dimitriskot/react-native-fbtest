@@ -4,8 +4,8 @@ import Product from "./Product";
 
 class ProductListComponent extends React.Component {
   componentDidMount() {
-    const { onProductsDefaultSelect } = this.props;
-    onProductsDefaultSelect();
+    const { productsDefaultSelect } = this.props;
+    productsDefaultSelect();
   }
 
   isProductSelect = (product) => {
@@ -14,13 +14,13 @@ class ProductListComponent extends React.Component {
   };
 
   handleChange = (product, e) => {
-    const { onProductSelect, onProductDeselect } = this.props;
+    const { productSelect, productDeselect } = this.props;
     const card = e.currentTarget;
     const cardBody = card.nextElementSibling;
     if (!card.checked) {
       cardBody.classList.remove("product-body--hover");
     }
-    product.isChecked ? onProductDeselect(product) : onProductSelect(product);
+    product.isChecked ? productDeselect(product) : productSelect(product);
   };
 
   handleMouseLeave = (product, e) => {
@@ -53,9 +53,9 @@ class ProductListComponent extends React.Component {
 
 ProductListComponent.propTypes = {
   products: PropTypes.array,
-  onProductsDefaultSelect: PropTypes.func,
-  onProductSelect: PropTypes.func,
-  onProductDeselect: PropTypes.func
+  productsDefaultSelect: PropTypes.func,
+  productSelect: PropTypes.func,
+  productDeselect: PropTypes.func
 };
 
 export default ProductListComponent;

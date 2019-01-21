@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import * as classNames from "classnames";
-import numberDeclension from "../../utils";
+import { numberDeclension } from "../../utils";
 
 const Product = (props) => {
   const { product, handleChange, handleMouseLeave, handleLabelClick } = props;
