@@ -1,28 +1,29 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import productActions from "../../data/actions/products";
-import Product from "./Product";
+import PropTypes from "prop-types";
+import Product from "../../components/market/Product";
+import productActions from "../../store/actions/market";
 
-class ProductListComponent extends React.Component {
+class ProductListContainer extends React.Component {
+
   componentDidMount() {
-    const { onProductsDefaultSelect } = this.props;
-    onProductsDefaultSelect();
+    const { productsDefaultSelect } = this.props;
+    productsDefaultSelect();
   }
 
-  isProductSelect = product => {
+  isProductSelect = (product) => {
     const { products } = this.props;
-    return products.findIndex(el => el.id === product.id) > -1;
+    return products.findIndex((el) => el.id === product.id) > -1;
   };
 
   handleChange = (product, e) => {
-    const { onProductSelect, onProductDeselect } = this.props;
+    const { productSelect, productDeselect } = this.props;
     const card = e.currentTarget;
     const cardBody = card.nextElementSibling;
     if (!card.checked) {
       cardBody.classList.remove("product-body--hover");
     }
-    product.isChecked ? onProductDeselect(product) : onProductSelect(product);
+    product.isChecked ? productDeselect(product) : productSelect(product);
   };
 
   handleMouseLeave = (product, e) => {
@@ -51,38 +52,23 @@ class ProductListComponent extends React.Component {
     ));
     return <div className={"product-list"}>{productList}</div>;
   }
+
 }
 
-const mapStateToProps = state => {
-  return {
-    products: state.productsReducer.products
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onProductSelect: product => {
-      dispatch(productActions.productSelect(product));
-    },
-    onProductDeselect: product => {
-      dispatch(productActions.productDeselect(product));
-    },
-    onProductsDefaultSelect: () => {
-      dispatch(productActions.productsDefaultSelect());
-    }
-  };
-};
-
-ProductListComponent.propTypes = {
+ProductListContainer.propTypes = {
   products: PropTypes.array,
-  onProductsDefaultSelect: PropTypes.func,
-  onProductSelect: PropTypes.func,
-  onProductDeselect: PropTypes.func
+  productsDefaultSelect: PropTypes.func,
+  productSelect: PropTypes.func,
+  productDeselect: PropTypes.func
+};
+
+const mapStateToProps = (state) => {
+  return { products: state.market.products };
 };
 
 const ProductList = connect(
   mapStateToProps,
-  mapDispatchToProps,
-)(ProductListComponent);
+  productActions
+)(ProductListContainer);
 
 export default ProductList;

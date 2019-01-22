@@ -1,5 +1,5 @@
 {
-  "name": "react-native-template",
+  "name": "react-native-fbtest",
   "version": "1.0.0",
   "description": "js, sass.",
   "main": "index.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dimitriskot/react-native-template.git"
+    "url": "git+https://github.com/dimitriskot/react-native-fbtest.git"
   },
   "author": "dimitriskot",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dimitriskot/react-native-template/issues"
+    "url": "https://github.com/dimitriskot/react-native-fbtest/issues"
   },
-  "homepage": "https://github.com/dimitriskot/react-native-template#readme",
+  "homepage": "https://github.com/dimitriskot/react-native-fbtest#readme",
   "devDependencies": {
     "@babel/core": "7.1.2",
     "@babel/plugin-proposal-class-properties": "7.1.0",
@@ -52,7 +52,9 @@
     "react-router-dom": "4.3.1",
     "react-router-redux": "4.0.8",
     "react-sortable-hoc": "0.8.3",
+    "recompose": "^0.30.0",
     "redux": "4.0.1",
+    "redux-actions": "2.6.4",
     "resolve-url-loader": "3.0.0",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.1",

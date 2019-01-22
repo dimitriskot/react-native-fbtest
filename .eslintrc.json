@@ -27,10 +27,15 @@
       "always"
     ],
     "linebreak-style": "off",
-    "object-curly-newline": "off",
+    "object-curly-newline": ["error", {
+      "multiline": true
+      }
+    ],
+    "padded-blocks": ["error", { "classes": "always" }],
+    "object-curly-spacing": ["error", "always"],
     "no-mixed-operators": "off",
     "arrow-body-style": "off",
-    "function-paren-newline": "off",
+    "function-paren-newline": ["error", "consistent"],
     "no-plusplus": "off",
     "space-before-function-paren": 0,
     "no-unused-expressions": [

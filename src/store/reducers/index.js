@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
 import { routerReducer } from "react-router-redux";
-import productsReducer from "./products";
+import market from "./market";
+import routeEditor from "./route-editor";
 
 const fbTestApp = combineReducers({
   routing: routerReducer,
-  productsReducer
+  market,
+  routeEditor
 });
 
 export default fbTestApp;
