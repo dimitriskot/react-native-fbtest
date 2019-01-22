@@ -42,7 +42,7 @@ class MapFormContainer extends React.Component {
   };
 
   handleSortEnd = ({ oldIndex, newIndex }) => {
-    const { map: { points }, changePointsOrder } = this.props;
+    const { points, changePointsOrder } = this.props;
     const newPoints = arrayMove(points, oldIndex, newIndex);
     changePointsOrder(newPoints);
     this.getRoute();
@@ -68,7 +68,7 @@ class MapFormContainer extends React.Component {
 
   getRoute = () => {
     const { getDirections } = this.props;
-    const { routeEditor: { map: { points } } } = store.getState();
+    const { routeEditor: { pointsReducer: { points } } } = store.getState();
     const isPoints = points.length > 0;
     if (isPoints) {
       const google = window.google;
@@ -102,7 +102,7 @@ class MapFormContainer extends React.Component {
 
   render() {
     const { value } = this.state;
-    const { map: { points } } = this.props;
+    const { points } = this.props;
 
     return (
       <MapFormComponent
@@ -120,10 +120,8 @@ class MapFormContainer extends React.Component {
 }
 
 MapFormContainer.propTypes = {
-  map: PropTypes.shape({
-    points: PropTypes.array.isRequired,
-    center: PropTypes.object.isRequired
-  }).isRequired,
+  map: PropTypes.shape({ center: PropTypes.object.isRequired }).isRequired,
+  points: PropTypes.array.isRequired,
   addPoint: PropTypes.func.isRequired,
   deletePoint: PropTypes.func.isRequired,
   getDirections: PropTypes.func.isRequired,
@@ -132,7 +130,10 @@ MapFormContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { map: state.routeEditor.map };
+  return {
+    map: state.routeEditor.mapReducer.map,
+    points: state.routeEditor.pointsReducer.points
+  };
 };
 
 const MapForm = connect(
