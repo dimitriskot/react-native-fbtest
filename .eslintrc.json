@@ -31,6 +31,7 @@
       "multiline": true
       }
     ],
+    "padded-blocks": ["error", { "classes": "always" }],
     "object-curly-spacing": ["error", "always"],
     "no-mixed-operators": "off",
     "arrow-body-style": "off",

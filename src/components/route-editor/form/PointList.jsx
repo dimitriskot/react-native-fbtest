@@ -4,8 +4,11 @@ import { SortableContainer } from "react-sortable-hoc";
 import PointItem from "./PointItem";
 
 const PointList = (props) => {
-  const { points, onDeleteButtonClick } = props;
-  console.log(points);
+  const {
+    points,
+    onDeleteButtonClick
+  } = props;
+
   return (
     <ul className={"map-form__list"}>
       {points.map((point, i) => (

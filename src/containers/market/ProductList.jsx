@@ -1,8 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Product from "./Product";
+import Product from "../../components/market/Product";
+import productActions from "../../store/actions/market";
 
-class ProductListComponent extends React.Component {
+class ProductListContainer extends React.Component {
+
   componentDidMount() {
     const { productsDefaultSelect } = this.props;
     productsDefaultSelect();
@@ -49,13 +52,23 @@ class ProductListComponent extends React.Component {
     ));
     return <div className={"product-list"}>{productList}</div>;
   }
+
 }
 
-ProductListComponent.propTypes = {
+ProductListContainer.propTypes = {
   products: PropTypes.array,
   productsDefaultSelect: PropTypes.func,
   productSelect: PropTypes.func,
   productDeselect: PropTypes.func
 };
 
-export default ProductListComponent;
+const mapStateToProps = (state) => {
+  return { products: state.market.products };
+};
+
+const ProductList = connect(
+  mapStateToProps,
+  productActions
+)(ProductListContainer);
+
+export default ProductList;

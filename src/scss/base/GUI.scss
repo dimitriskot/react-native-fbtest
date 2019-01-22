@@ -1,0 +1,20 @@
+.button {
+    position: absolute;
+    top: -30px;
+    right: 0;
+    width: 90px;
+    padding: 6px;
+    display: flex;
+    justify-content: center;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.4);
+    text-transform: uppercase;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &--close {
+      color: #000000;
+      background: #eeeeee;
+    }
+}

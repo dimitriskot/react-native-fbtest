@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { compose, withProps, withHandlers } from "recompose";
 import {
   withScriptjs,
@@ -8,8 +9,9 @@ import {
   Marker,
   DirectionsRenderer
 } from "react-google-maps";
+import routeEditorActions from "../../store/actions/route-editor";
 
-const MapComponent = compose(
+const MapContainer = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyDM_DVnbVRiQLfPIOwyDFbwg5X_HIG62_Y",
     loadingElement: <div className={"loadingElement"} style={{ height: "100%" }} />,
@@ -73,7 +75,7 @@ const MapComponent = compose(
 });
 
 
-MapComponent.propTypes = {
+MapContainer.propTypes = {
   map: PropTypes.shape({
     zoom: PropTypes.number.isRequired,
     center: PropTypes.object.isRequired,
@@ -82,12 +84,15 @@ MapComponent.propTypes = {
   }).isRequired,
   getRef: PropTypes.func,
   getCenter: PropTypes.func
-
-  // directions: PropTypes.object,
-  // getMapRef: PropTypes.func,
-  // getMapCenter: PropTypes.func,
-  // markers: PropTypes.array,
-  // onDragEnd: PropTypes.func
 };
+
+const mapStateToProps = (state) => {
+  return { map: state.routeEditor.map };
+};
+
+const MapComponent = connect(
+  mapStateToProps,
+  routeEditorActions
+)(MapContainer);
 
 export default MapComponent;

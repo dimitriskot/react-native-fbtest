@@ -1,4 +1,3 @@
-@import "./map-editor";
 @import "./map-form";
 
 .route-editor {
@@ -14,7 +13,54 @@
   }
 
   &__content {
+    // width: 100%;
+    // height: 100%;
+
+    position: relative;
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 30px);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    @media (min-width: $desktop-width) {
+      height: 800px;
+    }
+
+    // &__button {
+    //   position: absolute;
+    //   top: -30px;
+    //   right: 0;
+    //   width: 90px;
+    //   padding: 6px;
+    //   display: flex;
+    //   justify-content: center;
+    //   color: #ffffff;
+    //   background: rgba(0, 0, 0, 0.4);
+    //   text-transform: uppercase;
+    //   border: none;
+    //   outline: none;
+    //   cursor: pointer;
+
+    //   &--close {
+    //     color: #000000;
+    //     background: #eeeeee;
+    //   }
+    // }
+
+    .containerElement {
+      width: 100%;
+      height: 100%;
+
+      @media (min-width: $desktop-width) {
+        min-height: 600px;
+        height: 800px;
+      }
+
+      .mapElement {
+        height: 100%;
+      }
+    }
   }
 }
