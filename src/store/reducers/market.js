@@ -40,6 +40,6 @@ const market = handleActions({
       };
     })
   })
-}, { products: initialState.products });
+}, { products: initialState.market.products });
 
 export default market;

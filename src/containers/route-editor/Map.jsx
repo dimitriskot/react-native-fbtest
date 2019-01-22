@@ -19,7 +19,7 @@ const MapContainer = compose(
     mapElement: <div className={"mapElement"} />
   }),
   withHandlers((props) => {
-    const { getMapCenter } = props;
+    const { getMapCenter, getMapZoom } = props;
     const refs = { map: undefined };
     return {
       getRef: () => (ref) => {
@@ -27,6 +27,9 @@ const MapContainer = compose(
       },
       getCenter: () => () => {
         getMapCenter(refs.map.getCenter());
+      },
+      getZoom: () => () => {
+        getMapZoom(refs.map.getZoom());
       }
     };
   }),
@@ -36,12 +39,13 @@ const MapContainer = compose(
   const {
     getRef,
     getCenter,
+    getZoom,
     map: {
       zoom,
-      center,
-      points,
-      directions
-    }
+      center
+    },
+    points,
+    directions
   } = props;
 
   const markerList = points.map(({ id, position, draggable, handleDragEnd }) => (
@@ -59,6 +63,7 @@ const MapContainer = compose(
       defaultZoom={zoom}
       defaultCenter={center}
       onCenterChanged={getCenter}
+      onZoomChanged={getZoom}
     >
       {markerList}
       {directions && (
@@ -78,16 +83,22 @@ const MapContainer = compose(
 MapContainer.propTypes = {
   map: PropTypes.shape({
     zoom: PropTypes.number.isRequired,
-    center: PropTypes.object.isRequired,
-    directions: PropTypes.object,
-    points: PropTypes.array.isRequired
+    center: PropTypes.object.isRequired
   }).isRequired,
+  points: PropTypes.array.isRequired,
+  directions: PropTypes.object,
   getRef: PropTypes.func,
-  getCenter: PropTypes.func
+  getCenter: PropTypes.func,
+  getZoom: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
-  return { map: state.routeEditor.map };
+  console.log(state);
+  return {
+    map: state.routeEditor.mapReducer.map,
+    points: state.routeEditor.pointsReducer.points,
+    directions: state.routeEditor.directionsReducer.directions
+  };
 };
 
 const MapComponent = connect(
