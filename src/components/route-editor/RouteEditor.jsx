@@ -24,7 +24,7 @@ export default class RouteEditor extends React.Component {
         <div className={"route-editor__content"}>
           <MediaQuery maxWidth={768}>
             <button
-              className={classNames("button", isRouteListOpen && "button--close")}
+              className={classNames("tab-button", isRouteListOpen && "tab-button--close")}
               onClick={this.toggleMapForm}
             >
               {isRouteListOpen ? "Закрыть" : "Маршрут"}
