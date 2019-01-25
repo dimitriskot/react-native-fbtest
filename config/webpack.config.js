@@ -24,9 +24,7 @@ const config = {
     hot: true,
     historyApiFallback: true
   },
-  resolve: {
-    extensions: ["*", ".js", ".jsx"]
-  },
+  resolve: { extensions: ["*", ".js", ".jsx"] },
   devtool: isProduction ? "source-map" : "cheap-module-eval-source-map",
   module: {
     rules: [{
@@ -56,12 +54,8 @@ const config = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin("./dist", {
-      root: process.cwd()
-    }),
-    new MiniCssExtractPlugin({
-      filename: "style.[chunkhash:6].css"
-    }),
+    new CleanWebpackPlugin("./dist", { root: process.cwd() }),
+    new MiniCssExtractPlugin({ filename: "style.[chunkhash:6].css" }),
     new HtmlWebpackPlugin({
       inject: false,
       hash: true,
@@ -78,9 +72,7 @@ const config = {
     }),
     new HotModuleReplacementPlugin()
   ],
-  performance: {
-    hints: false
-  }
+  performance: { hints: false }
 };
 
 module.exports = config;

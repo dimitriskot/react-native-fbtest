@@ -26,10 +26,12 @@ const MapContainer = compose(
         refs.map = ref;
       },
       getCenter: () => () => {
-        getMapCenter(refs.map.getCenter());
+        const lat = refs.map.getCenter().lat();
+        const lng = refs.map.getCenter().lng();
+        getMapCenter({ lat, lng });
       },
       getZoom: () => () => {
-        getMapZoom(refs.map.getZoom());
+        getMapZoom({ zoom: refs.map.getZoom() });
       }
     };
   }),
@@ -42,10 +44,10 @@ const MapContainer = compose(
     getZoom,
     map: {
       zoom,
-      center
-    },
-    points,
-    directions
+      center,
+      points,
+      directions
+    }
   } = props;
 
   const markerList = points.map(({ id, position, draggable, handleDragEnd }) => (
@@ -83,22 +85,17 @@ const MapContainer = compose(
 MapContainer.propTypes = {
   map: PropTypes.shape({
     zoom: PropTypes.number.isRequired,
-    center: PropTypes.object.isRequired
+    center: PropTypes.object.isRequired,
+    points: PropTypes.array.isRequired,
+    directions: PropTypes.object
   }).isRequired,
-  points: PropTypes.array.isRequired,
-  directions: PropTypes.object,
   getRef: PropTypes.func,
   getCenter: PropTypes.func,
   getZoom: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    map: state.routeEditor.mapReducer.map,
-    points: state.routeEditor.pointsReducer.points,
-    directions: state.routeEditor.directionsReducer.directions
-  };
+  return { map: state.routeEditor };
 };
 
 const MapComponent = connect(
