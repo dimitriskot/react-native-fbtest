@@ -1,10 +1,10 @@
 {
   "name": "react-native-fbtest",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "js, sass.",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest",
     "dev": "NODE_ENV=development webpack-dev-server --config config/webpack.config.js --open",
     "dev_win": "set NODE_ENV=development&&webpack-dev-server --config config/webpack.config.js --open",
     "build": "NODE_ENV=production webpack --config config/webpack.config.js",
