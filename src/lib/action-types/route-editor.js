@@ -1,4 +1,4 @@
-const types = {
+export default {
   GET_MAP_CENTER: "GET_MAP_CENTER",
   GET_MAP_ZOOM: "GET_MAP_ZOOM",
   ADD_POINT: "ADD_POINT",
@@ -7,5 +7,3 @@ const types = {
   CHANGE_POINTS_ORDER: "CHANGE_POINTS_ORDER",
   GET_DIRECTIONS: "GET_DIRECTIONS"
 };
-
-export default types;

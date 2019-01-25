@@ -21,7 +21,7 @@ class MapFormContainer extends React.Component {
   handleCreateButtonClick = () => {
     const { addPoint } = this.props;
     const point = this.generatePoint();
-    addPoint(point);
+    addPoint({ point });
     const value = "";
     this.setState({ value });
     this.getRoute();
@@ -37,14 +37,14 @@ class MapFormContainer extends React.Component {
 
   handleDeleteButtonClick = (id) => {
     const { deletePoint } = this.props;
-    deletePoint(id);
+    deletePoint({ id });
     this.getRoute();
   };
 
   handleSortEnd = ({ oldIndex, newIndex }) => {
-    const { points, changePointsOrder } = this.props;
+    const { map: { points }, changePointsOrder } = this.props;
     const newPoints = arrayMove(points, oldIndex, newIndex);
-    changePointsOrder(newPoints);
+    changePointsOrder({ newPoints });
     this.getRoute();
   };
 
@@ -68,7 +68,7 @@ class MapFormContainer extends React.Component {
 
   getRoute = () => {
     const { getDirections } = this.props;
-    const { routeEditor: { pointsReducer: { points } } } = store.getState();
+    const { routeEditor: { points } } = store.getState();
     const isPoints = points.length > 0;
     if (isPoints) {
       const google = window.google;
@@ -89,11 +89,11 @@ class MapFormContainer extends React.Component {
           optimizeWaypoints: false,
           travelMode: google.maps.TravelMode.WALKING
         },
-        (result, status) => {
+        (directions, status) => {
           if (status === google.maps.DirectionsStatus.OK) {
-            getDirections(result);
+            getDirections({ directions });
           } else {
-            console.error(`Directions request failed due to ${result}`);
+            console.error(`Directions request failed due to ${directions}`);
           }
         },
       );
@@ -102,7 +102,7 @@ class MapFormContainer extends React.Component {
 
   render() {
     const { value } = this.state;
-    const { points } = this.props;
+    const { map: { points } } = this.props;
 
     return (
       <MapFormComponent
@@ -120,8 +120,10 @@ class MapFormContainer extends React.Component {
 }
 
 MapFormContainer.propTypes = {
-  map: PropTypes.shape({ center: PropTypes.object.isRequired }).isRequired,
-  points: PropTypes.array.isRequired,
+  map: PropTypes.shape({
+    center: PropTypes.object.isRequired,
+    points: PropTypes.array.isRequired
+  }).isRequired,
   addPoint: PropTypes.func.isRequired,
   deletePoint: PropTypes.func.isRequired,
   getDirections: PropTypes.func.isRequired,
@@ -130,10 +132,7 @@ MapFormContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return {
-    map: state.routeEditor.mapReducer.map,
-    points: state.routeEditor.pointsReducer.points
-  };
+  return { map: state.routeEditor };
 };
 
 const MapForm = connect(

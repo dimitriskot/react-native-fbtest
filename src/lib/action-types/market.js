@@ -1,7 +1,5 @@
-const types = {
+export default {
   PRODUCT_SELECT: "PRODUCT_SELECT",
   PRODUCT_DESELECT: "PRODUCT_DESELECT",
   PRODUCT_DEFAULT_SELECT: "PRODUCT_DEFAULT_SELECT"
 };
-
-export default types;

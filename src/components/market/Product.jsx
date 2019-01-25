@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import * as classNames from "classnames";
+import classNames from "classnames/bind";
 import { numberDeclension } from "../../utils";
 
 const Product = (props) => {

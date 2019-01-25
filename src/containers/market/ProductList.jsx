@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Product from "../../components/market/Product";
+import ProductListComponent from "../../components/market/ProductList";
 import productActions from "../../store/actions/market";
 
 class ProductListContainer extends React.Component {
@@ -18,12 +18,13 @@ class ProductListContainer extends React.Component {
 
   handleChange = (product, e) => {
     const { productSelect, productDeselect } = this.props;
+    const { id } = product;
     const card = e.currentTarget;
     const cardBody = card.nextElementSibling;
     if (!card.checked) {
       cardBody.classList.remove("product-body--hover");
     }
-    product.isChecked ? productDeselect(product) : productSelect(product);
+    product.isChecked ? productDeselect({ id }) : productSelect({ id });
   };
 
   handleMouseLeave = (product, e) => {
@@ -41,16 +42,14 @@ class ProductListContainer extends React.Component {
 
   render() {
     const { products } = this.props;
-    const productList = products.map((product) => (
-      <Product
-        key={product.id}
-        product={product}
-        handleChange={this.handleChange.bind(this, product)}
-        handleMouseLeave={this.handleMouseLeave.bind(this, product)}
-        handleLabelClick={this.handleLabelClick.bind(this, product)}
+    return (
+      <ProductListComponent
+        products={products}
+        handleChange={this.handleChange}
+        handleMouseLeave={this.handleMouseLeave}
+        handleLabelClick={this.handleLabelClick}
       />
-    ));
-    return <div className={"product-list"}>{productList}</div>;
+    );
   }
 
 }
