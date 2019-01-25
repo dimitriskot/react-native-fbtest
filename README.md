@@ -1,14 +1,16 @@
-# react-native-fbtest
+# react-js-fbtest
 
 test task (simple react app)
 
 ## platform
 
-inherit from my [webpack-template](https://github.com/dimitriskot/webpack-template)
+nodejs
 
 ## languages
 
-inherit from my [webpack-template](https://github.com/dimitriskot/webpack-template)
+- html
+- sass
+- js
 
 ## JS-library
 
@@ -16,4 +18,15 @@ inherit from my [webpack-template](https://github.com/dimitriskot/webpack-templa
 
 ## run scripts
 
-inherit from my [webpack-template](https://github.com/dimitriskot/webpack-template)
+```bash
+npm run ...
+```
+---
+| linux | windows   | describe                          |
+| ----- | --------- | --------                          |
+| dev   | dev_win   | runs project in development mode  |
+| build | build_win | runs project in production mode   |
+| test  | test      | runs tests                        |
+---
+
+a bit more info in my [webpack-template](https://github.com/dimitriskot/webpack-template)
